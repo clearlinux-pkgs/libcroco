@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.11
-Release  : 3
+Release  : 4
 URL      : http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.11.tar.xz
 Source0  : http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.11.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
@@ -64,10 +64,12 @@ lib components for the libcroco package.
 %setup -q -n libcroco-0.6.11
 
 %build
+export LANG=C
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
 %check
+export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost
@@ -115,8 +117,8 @@ rm -rf %{buildroot}
 /usr/include/libcroco-0.6/libcroco/cr-utils.h
 /usr/include/libcroco-0.6/libcroco/libcroco-config.h
 /usr/include/libcroco-0.6/libcroco/libcroco.h
-/usr/lib64/*.so
-/usr/lib64/pkgconfig/*.pc
+/usr/lib64/libcroco-0.6.so
+/usr/lib64/pkgconfig/libcroco-0.6.pc
 
 %files doc
 %defattr(-,root,root,-)
@@ -161,4 +163,5 @@ rm -rf %{buildroot}
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/*.so.*
+/usr/lib64/libcroco-0.6.so.3
+/usr/lib64/libcroco-0.6.so.3.0.1
