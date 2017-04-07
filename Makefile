@@ -1,5 +1,5 @@
 PKG_NAME := libcroco
-URL := http://ftp.gnome.org/pub/GNOME/sources/libcroco/0.6/libcroco-0.6.11.tar.xz
+URL := https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 
 
 include ../common/Makefile.common

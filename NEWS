@@ -1,3 +1,7 @@
+0.6.12
+    * Add support for Visual Studio 2017 (Chun-wei Fan)
+    * Misc bug fixes
+
 0.6.11
     * Fix regression in cr_tknzr_consume_chars (Florian Müllner)
     * Misc bug fixes
