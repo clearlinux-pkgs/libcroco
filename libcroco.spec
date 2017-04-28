@@ -4,12 +4,12 @@
 #
 Name     : libcroco
 Version  : 0.6.12
-Release  : 6
+Release  : 8
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
 Group    : Development/Tools
-License  : LGPL-2.0
+License  : GPL-2.0 LGPL-2.0
 Requires: libcroco-bin
 Requires: libcroco-lib
 Requires: libcroco-doc
@@ -26,6 +26,8 @@ BuildRequires : libxslt-bin
 BuildRequires : pkgconfig(32glib-2.0)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libxml-2.0)
+Patch1: cve-2017-7960.patch
+Patch2: cve-2017-7961.patch
 
 %description
 libcroco is a standalone css2 parsing library.
@@ -88,13 +90,15 @@ lib32 components for the libcroco package.
 
 %prep
 %setup -q -n libcroco-0.6.12
+%patch1 -p1
+%patch2 -p1
 pushd ..
 cp -a libcroco-0.6.12 build32
 popd
 
 %build
 export LANG=C
-export SOURCE_DATE_EPOCH=1491609471
+export SOURCE_DATE_EPOCH=1493420528
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -114,7 +118,7 @@ export no_proxy=localhost
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1491609471
+export SOURCE_DATE_EPOCH=1493420528
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
