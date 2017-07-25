@@ -4,12 +4,12 @@
 #
 Name     : libcroco
 Version  : 0.6.12
-Release  : 9
+Release  : 10
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
 Group    : Development/Tools
-License  : GPL-2.0 LGPL-2.0
+License  : LGPL-2.0
 Requires: libcroco-bin
 Requires: libcroco-lib
 Requires: libcroco-doc
@@ -24,6 +24,7 @@ BuildRequires : gtk-doc-dev
 BuildRequires : libxml2-dev32
 BuildRequires : libxslt-bin
 BuildRequires : pkgconfig(32glib-2.0)
+BuildRequires : pkgconfig(32libxml-2.0)
 BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libxml-2.0)
 Patch1: cve-2017-7960.patch
@@ -97,8 +98,15 @@ cp -a libcroco-0.6.12 build32
 popd
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1493420528
+export SOURCE_DATE_EPOCH=1500994989
+export CFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export FCFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export FFLAGS="$CFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
+export CXXFLAGS="$CXXFLAGS -Os -fdata-sections -ffunction-sections -fno-semantic-interposition -fstack-protector-strong "
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -114,11 +122,11 @@ popd
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1493420528
+export SOURCE_DATE_EPOCH=1500994989
 rm -rf %{buildroot}
 pushd ../build32/
 %make_install32
