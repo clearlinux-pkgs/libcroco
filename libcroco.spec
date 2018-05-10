@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.12
-Release  : 11
+Release  : 12
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.12.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
