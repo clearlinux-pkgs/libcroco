@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.13
-Release  : 16
+Release  : 17
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
@@ -105,6 +105,7 @@ license components for the libcroco package.
 
 %prep
 %setup -q -n libcroco-0.6.13
+cd %{_builddir}/libcroco-0.6.13
 pushd ..
 cp -a libcroco-0.6.13 build32
 popd
@@ -114,14 +115,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568861447
+export SOURCE_DATE_EPOCH=1586220255
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -mzero-caller-saved-regs=used "
 %configure --disable-static
 make  %{?_smp_mflags}
@@ -145,11 +146,11 @@ cd ../build32;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1568861447
+export SOURCE_DATE_EPOCH=1586220255
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libcroco
-cp COPYING %{buildroot}/usr/share/package-licenses/libcroco/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/package-licenses/libcroco/COPYING.LIB
+cp %{_builddir}/libcroco-0.6.13/COPYING %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f
+cp %{_builddir}/libcroco-0.6.13/COPYING.LIB %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -261,5 +262,4 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/libcroco/COPYING
-/usr/share/package-licenses/libcroco/COPYING.LIB
+/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f
