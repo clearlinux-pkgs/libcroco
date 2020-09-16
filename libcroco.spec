@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.13
-Release  : 17
+Release  : 18
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
@@ -31,6 +31,7 @@ BuildRequires : pkgconfig(glib-2.0)
 BuildRequires : pkgconfig(libxml-2.0)
 Patch1: cve-2017-8834.nopatch
 Patch2: cve-2017-8871.nopatch
+Patch3: CVE-2020-12825.patch
 
 %description
 libcroco is a standalone css2 parsing library.
@@ -106,6 +107,7 @@ license components for the libcroco package.
 %prep
 %setup -q -n libcroco-0.6.13
 cd %{_builddir}/libcroco-0.6.13
+%patch3 -p1
 pushd ..
 cp -a libcroco-0.6.13 build32
 popd
@@ -115,7 +117,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1586220255
+export SOURCE_DATE_EPOCH=1600215942
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -141,12 +143,12 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 cd ../build32;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1586220255
+export SOURCE_DATE_EPOCH=1600215942
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libcroco
 cp %{_builddir}/libcroco-0.6.13/COPYING %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f

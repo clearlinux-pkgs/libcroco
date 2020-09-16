@@ -2,3 +2,4 @@
 #cve-2017-7961.patch
 cve-2017-8834.nopatch
 cve-2017-8871.nopatch
+CVE-2020-12825.patch
