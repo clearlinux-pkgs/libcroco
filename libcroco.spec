@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.13
-Release  : 22
+Release  : 23
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
@@ -117,20 +117,20 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1600215942
+export SOURCE_DATE_EPOCH=1664156679
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=4 -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export CFLAGS="$CFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FCFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export FFLAGS="$FFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-sections -flto=auto -fno-semantic-interposition -fstack-protector-strong -fzero-call-used-regs=used "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 pushd ../build32/
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
@@ -148,16 +148,22 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1600215942
+export SOURCE_DATE_EPOCH=1664156679
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libcroco
-cp %{_builddir}/libcroco-0.6.13/COPYING %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f
-cp %{_builddir}/libcroco-0.6.13/COPYING.LIB %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f
+cp %{_builddir}/libcroco-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f || :
+cp %{_builddir}/libcroco-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f || :
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
 then
 pushd %{buildroot}/usr/lib32/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
+if [ -d %{buildroot}/usr/share/pkgconfig ]
+then
+pushd %{buildroot}/usr/share/pkgconfig
 for i in *.pc ; do ln -s $i 32$i ; done
 popd
 fi
