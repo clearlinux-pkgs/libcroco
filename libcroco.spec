@@ -4,7 +4,7 @@
 #
 Name     : libcroco
 Version  : 0.6.13
-Release  : 23
+Release  : 24
 URL      : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Source0  : https://download.gnome.org/sources/libcroco/0.6/libcroco-0.6.13.tar.xz
 Summary  : a CSS2 Parsing and manipulation Library in C.
@@ -117,7 +117,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1664156679
+export SOURCE_DATE_EPOCH=1664934220
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -148,7 +148,7 @@ cd ../build32;
 make %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1664156679
+export SOURCE_DATE_EPOCH=1664934220
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/libcroco
 cp %{_builddir}/libcroco-%{version}/COPYING %{buildroot}/usr/share/package-licenses/libcroco/5fb362ef1680e635fe5fb212b55eef4db9ead48f || :
